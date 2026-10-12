@@ -7,7 +7,7 @@ Generatore casuale di Pokémon in stile forum del 2005.
 Tre filtri:
 
 - **Quantità** — da 1 a 20 Pokémon, senza doppioni
-- **Tipo** — uno dei 18 tipi (i doppi tipo valgono per entrambi)
+- **Tipo** — uno o due dei 18 tipi (con due tipi il Pokémon deve averli entrambi)
 - **Complessità grafica** — intervallo da 1 a 10, calcolato sullo sprite 96x96
 
 ## Complessità grafica

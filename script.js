@@ -9,7 +9,7 @@
   var MAX_QTY = 20;
 
   var $ = function (id) { return document.getElementById(id); };
-  var qty = $('qty'), type = $('type'), cmin = $('cmin'), cmax = $('cmax');
+  var qty = $('qty'), type = $('type'), type2 = $('type2'), cmin = $('cmin'), cmax = $('cmax');
 
   // --- costruzione dei menu ---
   function option(value, text) {
@@ -19,9 +19,13 @@
     return o;
   }
   type.appendChild(option('', '-- Qualsiasi tipo --'));
+  type2.appendChild(option('', '-- Nessun secondo tipo --'));
   Object.keys(TYPES)
     .sort(function (a, b) { return TYPES[a].localeCompare(TYPES[b], 'it'); })
-    .forEach(function (id) { type.appendChild(option(id, TYPES[id])); });
+    .forEach(function (id) {
+      type.appendChild(option(id, TYPES[id]));
+      type2.appendChild(option(id, TYPES[id]));
+    });
   for (var i = 1; i <= 10; i++) {
     cmin.appendChild(option(i, i));
     cmax.appendChild(option(i, i));
@@ -37,10 +41,13 @@
   }
 
   function candidates() {
-    var t = type.value ? parseInt(type.value, 10) : null;
+    // tipi richiesti (0, 1 o 2): il Pokémon deve averli tutti
+    var wanted = [type.value, type2.value]
+      .filter(function (v, i, a) { return v && a.indexOf(v) === i; })
+      .map(function (v) { return parseInt(v, 10); });
     var lo = parseInt(cmin.value, 10), hi = parseInt(cmax.value, 10);
     return POKEMON.filter(function (p) {
-      return (t === null || p[2].indexOf(t) !== -1) && p[3] >= lo && p[3] <= hi;
+      return wanted.every(function (t) { return p[2].indexOf(t) !== -1; }) && p[3] >= lo && p[3] <= hi;
     });
   }
 
@@ -58,6 +65,7 @@
     updatePool();
   });
   type.addEventListener('change', updatePool);
+  type2.addEventListener('change', updatePool);
   qty.addEventListener('change', function () { qty.value = readQty(); });
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-qty]'), function (b) {
@@ -162,6 +170,7 @@
   $('reset').addEventListener('click', function () {
     qty.value = 1;
     type.value = '';
+    type2.value = '';
     cmin.value = 1;
     cmax.value = 10;
     $('notice').hidden = true;
