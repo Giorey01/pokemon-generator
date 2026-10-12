@@ -1,0 +1,178 @@
+/* PokéGenerator Forum — stile forum 2005 */
+body {
+  margin: 0;
+  padding: 10px 16px;
+  background: #e5e9f0 repeating-linear-gradient(0deg, #e5e9f0 0, #e5e9f0 2px, #dfe4ec 2px, #dfe4ec 4px);
+  color: #000;
+  font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+a { color: #22229c; }
+a:hover { color: #ff4400; text-decoration: none; }
+.small { font-size: 10px; color: #444; }
+.center { text-align: center; }
+.px { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+.wrap {
+  width: 100%;
+  max-width: 880px;
+  background: #fff;
+  border: 1px solid #0b198c;
+  padding: 6px;
+}
+
+/* intestazione */
+.header {
+  background: linear-gradient(#5c7fc8, #1c3b8f 55%, #0b198c);
+  border: 1px solid #0b198c;
+  color: #fff;
+}
+.logo-cell { width: 100px; padding: 0 4px; }
+.header h1 {
+  margin: 0;
+  font: bold 26px "Trebuchet MS", Verdana, sans-serif;
+  letter-spacing: -1px;
+  text-shadow: 2px 2px 0 #06104f;
+}
+.tagline { font-style: italic; color: #ffd94a; }
+.header-links { text-align: right; padding: 0 10px; white-space: nowrap; vertical-align: bottom; padding-bottom: 8px; }
+.header-links a { color: #fff; font-weight: bold; }
+.header-links .small { color: #cfd9f5; }
+
+.marquee {
+  margin: 4px 0;
+  padding: 3px 0;
+  background: #fffbcc;
+  border: 1px solid #d4c35a;
+  color: #a00;
+  font-weight: bold;
+}
+.breadcrumb {
+  margin: 4px 0;
+  padding: 5px 6px;
+  background: #f5f5ff;
+  border: 1px solid #b8c3e0;
+}
+
+/* riquadri in stile tabella del forum */
+.box { background: #0b198c; margin: 8px 0; }
+.box .cat {
+  padding: 6px 8px;
+  background: linear-gradient(#6f8fd6, #2b4ba6 50%, #1a358a);
+  color: #fff;
+  font: bold 12px Verdana, sans-serif;
+  text-align: left;
+}
+.box .subhead td {
+  padding: 3px 8px;
+  background: linear-gradient(#f4f6fb, #c9d2e6);
+  color: #0b198c;
+  font-weight: bold;
+  font-size: 10px;
+}
+.box .row td { padding: 8px; background: #f1f3fa; vertical-align: top; line-height: 1.6; }
+.box .row td + td { background: #e6e9f4; }
+.box .row td + td + td { background: #f1f3fa; }
+.box .row td[colspan] { background: #f1f3fa; }
+
+label { font-weight: bold; }
+input, select {
+  font: 11px Verdana, sans-serif;
+  background: #fff;
+  border: 1px solid #7f9db9;
+  padding: 2px;
+  margin: 2px 0;
+}
+input[type=number] { width: 48px; }
+.quick { display: inline-block; margin-left: 4px; }
+
+.btn {
+  font: 11px Verdana, sans-serif;
+  color: #000;
+  background: linear-gradient(#fff, #d6d3ce);
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  outline: 1px solid #404040;
+  padding: 3px 10px;
+  margin: 3px 4px;
+  cursor: pointer;
+}
+.btn:active { border-color: #808080 #fff #fff #808080; background: #d6d3ce; }
+.btn:focus-visible { outline: 1px dotted #000; outline-offset: -5px; }
+.btn.mini { padding: 1px 6px; margin: 2px 1px; }
+.btn.big { font-weight: bold; font-size: 13px; padding: 5px 24px; }
+
+.notice {
+  margin: 8px 0;
+  padding: 6px 8px;
+  background: #fff4f4;
+  border: 1px solid #c00;
+  color: #a00;
+  font-weight: bold;
+}
+
+/* risultati */
+.results { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.empty { padding: 24px 0; color: #666; font-style: italic; }
+.card {
+  width: 152px;
+  background: #fff;
+  border: 1px solid #98aab1;
+  text-align: center;
+}
+.card-head {
+  padding: 2px 4px;
+  background: linear-gradient(#f4f6fb, #c9d2e6);
+  border-bottom: 1px solid #98aab1;
+  color: #0b198c;
+  font-size: 10px;
+  text-align: left;
+}
+.card img { width: 144px; height: 144px; display: block; margin: 0 auto; }
+.card .name { font: bold 13px "Trebuchet MS", Verdana, sans-serif; color: #0b198c; }
+.card .types { margin: 3px 0; }
+.type {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 0 1px;
+  border: 1px solid rgba(0, 0, 0, .45);
+  color: #fff;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .55);
+}
+.cx { padding: 3px 0 5px; border-top: 1px dotted #98aab1; margin-top: 4px; font-size: 10px; }
+.bar { display: inline-block; vertical-align: middle; border: 1px solid #555; background: #fff; line-height: 0; padding: 1px; }
+.bar i { display: inline-block; width: 6px; height: 8px; margin-right: 1px; background: #ddd; }
+.bar i:last-child { margin-right: 0; }
+.bar i.on { background: linear-gradient(#ffb347, #e05a00); }
+
+/* piè di pagina */
+.footer { margin-top: 10px; padding: 8px; text-align: center; font-size: 10px; color: #555; line-height: 1.7; }
+.badge {
+  display: inline-block;
+  width: 86px;
+  height: 14px;
+  line-height: 14px;
+  margin: 0 2px 4px;
+  border: 1px solid #000;
+  color: #fff;
+  font: bold 9px/14px Verdana, sans-serif;
+}
+.b1 { background: linear-gradient(90deg, #f60 40%, #333 40%); }
+.b2 { background: linear-gradient(90deg, #06c 40%, #333 40%); }
+.b3 { background: linear-gradient(90deg, #090 40%, #333 40%); }
+.b4 { background: linear-gradient(90deg, #c00 40%, #333 40%); }
+
+/* schermi piccoli: le tre colonne vanno una sotto l'altra */
+@media (max-width: 600px) {
+  body { padding: 6px; }
+  .header-links { display: none; }
+  .header h1 { font-size: 19px; }
+  .logo-cell, .logo-cell img { width: 56px; height: 56px; }
+  .box .subhead { display: none; }
+  .box .row, .box .row td { display: block; }
+  .box .row td { width: auto; border-top: 1px solid #0b198c; }
+  .card { width: 138px; }
+  .card img { width: 96px; height: 96px; }
+}

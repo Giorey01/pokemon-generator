@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokéGenerator Forum :: Generatore casuale di Pokémon</title>
+<meta name="description" content="Genera Pokémon casuali filtrando per quantità, tipo e complessità grafica dello sprite.">
+<link rel="icon" href="sprites/25.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<table class="wrap" cellspacing="0" cellpadding="0" align="center"><tr><td>
+
+  <table class="header" cellspacing="0" cellpadding="0" width="100%"><tr>
+    <td class="logo-cell"><img src="sprites/25.png" width="96" height="96" alt="" class="px"></td>
+    <td>
+      <h1>PokéGenerator Forum</h1>
+      <div class="tagline">Il generatore casuale di Pokémon n°1 del web!!</div>
+    </td>
+    <td class="header-links">
+      <a href="#genera">Genera</a> | <a href="#faq">FAQ</a> | <a href="#stats">Statistiche</a><br>
+      <span class="small">Benvenuto, <b>Ospite</b>. Oggi è <span id="today"></span></span>
+    </td>
+  </tr></table>
+
+  <div class="marquee"><marquee scrollamount="4">*** Benvenuto su PokéGenerator Forum! *** 1025 Pokémon in archivio *** 18 tipi *** complessità grafica da 1 a 10 *** Sito ottimizzato per 1024x768 *** Firma il guestbook!! ***</marquee></div>
+
+  <div class="breadcrumb"><b>&raquo;</b> <a href="#">PokéGenerator Forum</a> <b>&raquo;</b> <a href="#genera">Generatore</a> <b>&raquo;</b> Estrazione casuale</div>
+
+  <a name="genera"></a>
+  <table class="box" cellspacing="1" cellpadding="0" width="100%">
+    <tr><th colspan="3" class="cat">:: Pannello di generazione ::</th></tr>
+    <tr class="subhead">
+      <td width="33%">1. Quantità</td>
+      <td width="33%">2. Tipo</td>
+      <td width="34%">3. Complessità grafica</td>
+    </tr>
+    <tr class="row">
+      <td>
+        <label for="qty">Quanti Pokémon?</label><br>
+        <input type="number" id="qty" min="1" max="20" value="1" size="3">
+        <div class="quick">
+          <button type="button" class="btn mini" data-qty="1">1</button>
+          <button type="button" class="btn mini" data-qty="2">2</button>
+          <button type="button" class="btn mini" data-qty="3">3</button>
+          <button type="button" class="btn mini" data-qty="6">6</button>
+        </div>
+        <div class="small">da 1 a 20, senza doppioni</div>
+      </td>
+      <td>
+        <label for="type">Tipo del Pokémon</label><br>
+        <select id="type"></select>
+        <div class="small">i doppi tipo valgono per entrambi</div>
+      </td>
+      <td>
+        <label for="cmin">Da</label>
+        <select id="cmin"></select>
+        <label for="cmax">a</label>
+        <select id="cmax"></select>
+        <div class="small">1 = sprite semplice, 10 = sprite pieno di dettagli</div>
+      </td>
+    </tr>
+    <tr class="row">
+      <td colspan="3" class="center">
+        <button type="button" id="go" class="btn big">Genera!</button>
+        <button type="button" id="reset" class="btn">Azzera filtri</button>
+        <div class="small" id="pool"></div>
+      </td>
+    </tr>
+  </table>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <table class="box" cellspacing="1" cellpadding="0" width="100%">
+    <tr><th class="cat">:: Risultato dell'estrazione ::</th></tr>
+    <tr class="row"><td>
+      <div id="results" class="results">
+        <div class="empty">Nessuna estrazione effettuata. Premi <b>Genera!</b> per cominciare.</div>
+      </div>
+    </td></tr>
+  </table>
+
+  <a name="faq"></a>
+  <table class="box" cellspacing="1" cellpadding="0" width="100%">
+    <tr><th class="cat">:: FAQ ::</th></tr>
+    <tr class="row"><td>
+      <b>Come viene calcolata la complessità grafica?</b><br>
+      Ogni sprite 96x96 viene analizzato pixel per pixel: si contano i cambi di colore tra pixel vicini
+      (cioè quante linee e dettagli ci sono), quanto sono fitti rispetto alla grandezza del Pokémon e
+      quanti colori vengono usati. I 1025 Pokémon vengono poi divisi in 10 fasce uguali:
+      il voto 1 raccoglie i più semplici, il voto 10 i più dettagliati.<br><br>
+      <b>Da dove arrivano i dati?</b><br>
+      Nomi, tipi e sprite provengono da <a href="https://pokeapi.co/">PokéAPI</a>.
+    </td></tr>
+  </table>
+
+  <a name="stats"></a>
+  <table class="box" cellspacing="1" cellpadding="0" width="100%">
+    <tr><th class="cat">:: Statistiche del forum ::</th></tr>
+    <tr class="row"><td class="small">
+      Abbiamo <b>1025</b> Pokémon registrati in <b>18</b> tipi.<br>
+      Hai effettuato <b id="draws">0</b> estrazioni da questo computer.<br>
+      Ultimo Pokémon estratto: <b id="last">nessuno</b>
+    </td></tr>
+  </table>
+
+  <div class="footer">
+    <span class="badge b1">HTML 4.01</span>
+    <span class="badge b2">IE 6.0</span>
+    <span class="badge b3">1024x768</span>
+    <span class="badge b4">NO SPAM</span>
+    <br>
+    PokéGenerator Forum &copy; 2005 &mdash; Sito amatoriale non ufficiale.<br>
+    Pokémon e i rispettivi nomi sono marchi di Nintendo / Creatures Inc. / GAME FREAK inc.
+  </div>
+
+</td></tr></table>
+
+<script src="data/pokemon.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
