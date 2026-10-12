@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokéGenerator Forum :: Disegno</title>
+<meta name="description" content="Genera Pokémon casuali filtrando per quantità, tipo e complessità grafica dello sprite.">
+<link rel="icon" href="sprites/25.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<table class="wrap" cellspacing="0" cellpadding="0" align="center"><tr><td>
+
+  <table class="header" cellspacing="0" cellpadding="0" width="100%"><tr>
+    <td class="logo-cell"><img src="sprites/25.png" width="96" height="96" alt="" class="px"></td>
+    <td>
+      <h1>PokéGenerator Forum</h1>
+      <div class="tagline">Il generatore casuale di Pokémon n°1 del web!!</div>
+    </td>
+    <td class="header-links">
+      <a href="index.html">Generatore</a> | <a href="draw.html">Disegno</a> | <a href="index.html#faq">FAQ</a><br>
+      <span class="small">Benvenuto, <b>Ospite</b>. Oggi è <span id="today"></span></span>
+    </td>
+  </tr></table>
+
+  <div class="mobile-nav"><a href="index.html">Generatore</a> | <a href="draw.html">Disegno</a> | <a href="index.html#faq">FAQ</a></div>
+
+  <div class="breadcrumb"><b>&raquo;</b> <a href="index.html">PokéGenerator Forum</a> <b>&raquo;</b> Disegno <b>&raquo;</b> <span id="crumb"></span></div>
+
+  <table class="box" cellspacing="1" cellpadding="0" width="100%">
+    <tr><th class="cat">:: Scegli il Pokémon da disegnare ::</th></tr>
+    <tr class="row"><td>
+      <label for="pick">Pokémon:</label>
+      <input type="text" id="pick" list="names" size="18" placeholder="nome o numero" autocomplete="off">
+      <datalist id="names"></datalist>
+      <button type="button" class="btn" id="pick-go">Vai</button>
+      <button type="button" class="btn" id="pick-prev">&laquo; Prec.</button>
+      <button type="button" class="btn" id="pick-next">Succ. &raquo;</button>
+      <button type="button" class="btn" id="pick-random">A caso!</button>
+      <div class="small">Ogni disegno viene salvato da solo in questo browser, uno per Pokémon.</div>
+    </td></tr>
+  </table>
+
+  <table class="box draw" cellspacing="1" cellpadding="0" width="100%">
+    <tr>
+      <th class="cat">:: Riferimento ::</th>
+      <th class="cat">:: Tela di disegno ::</th>
+    </tr>
+    <tr class="row">
+      <td class="draw-left">
+        <div class="ref-wrap" id="ref-wrap">
+          <canvas id="ref" width="96" height="96" class="px"></canvas>
+          <div id="ref-marker" class="ref-marker" hidden></div>
+        </div>
+        <div class="name" id="name"></div>
+        <div class="small" id="number"></div>
+        <div class="types" id="types"></div>
+        <div class="small">Clicca sul riferimento per prenderne un colore.</div>
+        <div class="navlinks"><a id="sheet" class="btn" target="_blank">Apri la scheda</a></div>
+
+        <div class="subtitle">Controllo del match</div>
+        <button type="button" class="btn" id="check">Controlla!</button>
+        <div class="checks">
+          <label class="opt"><input type="checkbox" id="opt-diff"> Differenze sulla tela</label>
+          <label class="opt"><input type="checkbox" id="opt-onion"> Carta velina</label>
+        </div>
+        <div id="score" class="score small">Premi <b>Controlla!</b> per vedere quanto il disegno somiglia allo sprite.</div>
+        <div class="legend small" id="legend" hidden>
+          <span class="key k-ok"></span> giusto
+          <span class="key k-color"></span> colore sbagliato<br>
+          <span class="key k-miss"></span> mancante
+          <span class="key k-extra"></span> di troppo
+        </div>
+      </td>
+      <td class="draw-right">
+        <div class="toolbar" id="tools">
+          <button type="button" class="btn tool" data-tool="pencil" title="Matita (B)">Matita</button>
+          <button type="button" class="btn tool" data-tool="eraser" title="Gomma (E)">Gomma</button>
+          <button type="button" class="btn tool" data-tool="bucket" title="Secchiello (G)">Secchiello</button>
+          <button type="button" class="btn tool" data-tool="picker" title="Contagocce (I)">Contagocce</button>
+          <button type="button" class="btn tool" data-tool="line" title="Linea (L)">Linea</button>
+          <button type="button" class="btn tool" data-tool="rect" title="Rettangolo (U)">Rettangolo</button>
+          <button type="button" class="btn tool" data-tool="ellipse" title="Ellisse (O)">Ellisse</button>
+          <button type="button" class="btn tool" data-tool="select" title="Selezione (M)">Selezione</button>
+          <button type="button" class="btn tool" data-tool="move" title="Sposta (V)">Sposta</button>
+          <button type="button" class="btn tool" data-tool="hand" title="Mano (H)">Mano</button>
+        </div>
+        <div class="toolbar options">
+          <label class="opt">Pennello <select id="size"></select></label>
+          <label class="opt"><input type="checkbox" id="opt-perfect" checked> Pixel perfect</label>
+          <label class="opt"><input type="checkbox" id="opt-fill"> Forme piene</label>
+          <label class="opt"><input type="checkbox" id="opt-sym"> Simmetria</label>
+          <label class="opt"><input type="checkbox" id="opt-grid" checked> Griglia</label>
+          <label class="opt"><input type="checkbox" id="opt-checker"> Sfondo a scacchi</label>
+          <label class="opt"><input type="checkbox" id="opt-mini"> Mini riferimento</label>
+        </div>
+        <div class="toolbar">
+          <button type="button" class="btn" id="undo" title="Annulla (Ctrl+Z)">Annulla</button>
+          <button type="button" class="btn" id="redo" title="Ripeti (Ctrl+Y)">Ripeti</button>
+          <button type="button" class="btn" id="zoom-out" title="Riduci (-)">Zoom &minus;</button>
+          <button type="button" class="btn" id="zoom-in" title="Ingrandisci (+)">Zoom +</button>
+          <button type="button" class="btn" id="deselect" title="Deseleziona (Ctrl+D)">Deseleziona</button>
+          <button type="button" class="btn" id="clear">Cancella tutto</button>
+          <button type="button" class="btn" id="export">Salva PNG</button>
+          <button type="button" class="btn" id="export-big">Salva PNG x8</button>
+        </div>
+
+        <div class="toolbar colors">
+          <span class="swatch big" id="fg" title="Colore primario (click sinistro)"></span>
+          <span class="swatch big" id="bg" title="Colore secondario (click destro)"></span>
+          <button type="button" class="btn mini" id="swap" title="Scambia i colori (X)">Scambia</button>
+          <input type="color" id="custom" title="Scegli un colore libero">
+          <span class="palette" id="palette" title="Palette dello sprite: click = primario, click destro = secondario"></span>
+        </div>
+
+        <div class="viewport-wrap">
+          <img id="mini" class="mini-ref px" alt="" hidden>
+          <div class="viewport" id="viewport">
+          <div class="stage" id="stage">
+            <img id="onion" class="layer px" alt="" hidden>
+            <canvas id="canvas" class="layer px" width="96" height="96"></canvas>
+            <canvas id="diff" class="layer px" width="96" height="96" hidden></canvas>
+            <canvas id="preview" class="layer px" width="96" height="96"></canvas>
+            <div id="grid" class="layer grid"></div>
+            <div id="axis" class="axis" hidden></div>
+            <div id="marquee" class="marquee-sel" hidden></div>
+          </div>
+        </div>
+        </div>
+        <div class="statusbar" id="status">&nbsp;</div>
+        <div class="small">
+          <b>Scorciatoie:</b> B matita, E gomma, G secchiello, I contagocce (o Alt+click), L linea, U rettangolo, O ellisse,
+          M selezione, V sposta, H mano, X scambia colori, +/- zoom, Canc svuota la selezione, Ctrl+Z / Ctrl+Y annulla / ripeti.
+          Maiusc con linea e forme = angoli a 45° e forme regolari. Click destro = colore secondario (anche sulla palette).<br>
+          <b>Touch:</b> un dito disegna, due dita spostano e ingrandiscono la tela.
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="footer">
+    <span class="badge b1">HTML 4.01</span>
+    <span class="badge b2">IE 6.0</span>
+    <span class="badge b3">1024x768</span>
+    <span class="badge b4">NO SPAM</span>
+    <br>
+    PokéGenerator Forum &copy; 2005 &mdash; Sito amatoriale non ufficiale.<br>
+    Pokémon e i rispettivi nomi sono marchi di Nintendo / Creatures Inc. / GAME FREAK inc.
+  </div>
+
+</td></tr></table>
+
+<script src="data/pokemon.js"></script>
+<script src="common.js"></script>
+<script src="draw.js"></script>
+</body>
+</html>

@@ -227,3 +227,64 @@ a.btn:hover { color: #000; }
   .box .row .stats th, .box .row .stats td { display: table-cell; border-top: 0; }
   .info th, .stats th { width: 96px; white-space: normal; }
 }
+
+/* barra di navigazione per telefoni (l'intestazione lì nasconde i link) */
+.mobile-nav { display: none; margin: 4px 0; padding: 5px 6px; background: #1c3b8f; border: 1px solid #0b198c; color: #fff; text-align: center; font-weight: bold; }
+.mobile-nav a { color: #fff; }
+@media (max-width: 600px) { .mobile-nav { display: block; } }
+
+/* pagina di disegno (draw.html): riferimento a sinistra, tela a destra */
+/* layout fisso: la tela ingrandita scorre dentro il suo riquadro invece di allargare la pagina */
+.draw { table-layout: fixed; }
+.draw th:first-child { width: 300px; }
+.draw .row td.draw-left { width: 300px; text-align: center; background: #e6e9f4; }
+.draw .row td.draw-right { background: #f1f3fa; }
+.draw-left .name { font: bold 18px "Trebuchet MS", Verdana, sans-serif; color: #0b198c; }
+.draw-left .types { margin: 6px 0; }
+.draw-left .subtitle { text-align: left; }
+.ref-wrap { position: relative; width: 288px; max-width: 100%; aspect-ratio: 1; margin: 0 auto 6px; background: #fff; border: 1px solid #98aab1; cursor: crosshair; touch-action: manipulation; }
+.ref-wrap canvas { display: block; width: 100%; height: 100%; }
+.ref-marker { position: absolute; box-sizing: border-box; border: 1px solid #f00; outline: 1px solid #fff; pointer-events: none; }
+
+.swatch { display: inline-block; width: 18px; height: 18px; margin: 1px; border: 1px solid #000; outline: 1px solid #fff; vertical-align: middle; cursor: pointer; }
+.swatch.big { width: 30px; height: 30px; cursor: default; }
+.swatch.sel { outline: 2px solid #ff4400; }
+.palette { margin-left: 6px; }
+#custom { width: 40px; height: 30px; padding: 0; vertical-align: middle; }
+.checks { margin: 4px 0; }
+.score { margin: 6px 0; padding: 6px; background: #fff; border: 1px solid #98aab1; text-align: left; line-height: 1.6; }
+.score .big { font: bold 20px "Trebuchet MS", Verdana, sans-serif; color: #0b198c; }
+.legend { text-align: left; line-height: 1.9; }
+.key { display: inline-block; width: 10px; height: 10px; border: 1px solid #000; vertical-align: middle; margin-left: 4px; }
+.k-ok { background: #2fbf3a; } .k-color { background: #ff9a1a; } .k-miss { background: #ffe81a; } .k-extra { background: #e81a1a; }
+
+.toolbar { margin-bottom: 4px; padding: 2px; background: #d6d3ce; border: 1px solid; border-color: #fff #808080 #808080 #fff; }
+.toolbar .btn { margin: 2px; padding: 3px 7px; }
+.btn.tool.on { border-color: #808080 #fff #fff #808080; background: #fff8c8; font-weight: bold; }
+.opt { display: inline-block; margin: 3px 6px; font-weight: normal; white-space: nowrap; }
+.opt input { vertical-align: middle; }
+
+.viewport-wrap { position: relative; }
+.mini-ref { position: absolute; top: 6px; right: 22px; z-index: 2; width: 96px; height: 96px; background: #fff; border: 1px solid #000; box-shadow: 2px 2px 0 rgba(0, 0, 0, .4); pointer-events: none; }
+.viewport { display: flex; height: 520px; max-height: 70vh; overflow: auto; background: #808080; border: 2px solid; border-color: #404040 #fff #fff #404040; }
+.stage { position: relative; flex: none; margin: auto; background: #fff; box-shadow: 0 0 0 1px #000; touch-action: none; cursor: crosshair; }
+.stage.checker { background: repeating-conic-gradient(#fff 0 25%, #cfcfcf 0 50%) 0 0 / 16px 16px; }
+.stage .layer { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+#onion { opacity: .4; }
+#diff { opacity: .8; }
+.grid { background-image: linear-gradient(to right, rgba(0, 0, 0, .18) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, .18) 1px, transparent 1px); }
+.axis { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; border-left: 1px dashed #0a0; pointer-events: none; }
+.marquee-sel { position: absolute; box-sizing: border-box; border: 1px dashed #000; outline: 1px dashed #fff; outline-offset: -2px; pointer-events: none; }
+.statusbar { margin: 4px 0; padding: 2px 6px; background: #d6d3ce; border: 1px solid; border-color: #808080 #fff #fff #808080; font-family: "Courier New", monospace; }
+
+@media (max-width: 600px) {
+  .draw .row td.draw-left, .draw th:first-child { width: auto; }
+  .draw tr:first-child th + th { display: none; }
+  .ref-wrap { width: 192px; }
+}
+/* dita: bottoni e colori più grandi */
+@media (pointer: coarse) {
+  .toolbar .btn, .draw-left .btn { padding: 8px 10px; }
+  .swatch { width: 28px; height: 28px; margin: 2px; }
+  .opt { margin: 8px 8px; }
+}

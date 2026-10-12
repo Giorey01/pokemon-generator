@@ -13,6 +13,17 @@ Tre filtri:
 Cliccando su un Pokémon estratto si apre in una nuova scheda la sua pagina (`pokemon.html?id=N`):
 sprite grande a sinistra; a destra descrizione, altezza, peso, abilità, evoluzioni e statistiche base.
 
+## Disegno
+
+`draw.html?id=N` è un editor di pixel art 96x96 ispirato ad [Aseprite](https://www.aseprite.org/)
+(strumenti e scorciatoie; il codice è scritto da zero): sprite di riferimento a sinistra, tela a destra.
+
+- Matita con "pixel perfect", gomma, secchiello, contagocce, linea, rettangolo, ellisse, selezione, sposta, mano
+- Pennello da 1 a 8, forme piene, simmetria, griglia, zoom, annulla/ripeti, palette estratta dallo sprite
+- Mouse (click destro = colore secondario), penna e touch (due dita per spostare e ingrandire)
+- **Controllo del match**: percentuale di sagoma e colori, vista delle differenze sulla tela, carta velina
+- Salvataggio automatico nel browser (uno per Pokémon) ed esportazione PNG
+
 ## Complessità grafica
 
 `tools/build_data.py` analizza ogni sprite e combina tre misure:

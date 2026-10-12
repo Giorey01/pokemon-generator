@@ -45,6 +45,8 @@
   $('sprite').alt = p[1];
   p[2].forEach(function (t) { $('types').appendChild(typeBadge(t)); });
 
+  $('draw').href = $('nav-draw').href = 'draw.html?id=' + id;
+
   // precedente / successivo (circolare)
   $('prev').href = 'pokemon.html?id=' + (id === 1 ? POKEMON.length : id - 1);
   $('next').href = 'pokemon.html?id=' + (id === POKEMON.length ? 1 : id + 1);
