@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scarica dati e sprite da PokeAPI e genera sprites/ e data/pokemon.js.
+"""Scarica dati e sprite da PokeAPI e genera sprites/, data/pokemon.js e data/details.js.
 
 Uso:  .venv/bin/python tools/build_data.py
 Richiede: pillow, numpy. I download vengono messi in .cache/ (non versionata).
@@ -22,6 +22,7 @@ CSV_URL = "https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/
 SPRITE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
 LAST_ID = 1025
 ITALIAN = "8"
+ENGLISH = "9"
 SIZE = 96
 
 
@@ -110,6 +111,71 @@ def percentile_rank(values):
     return ranks / max(len(values) - 1, 1)
 
 
+def clean(text):
+    """Toglie a capo, salti pagina e trattini di sillabazione dai testi del Pokédex."""
+    return " ".join(text.replace("\u00ad", "").replace("\f", " ").split())
+
+
+def build_details(ids, names):
+    """Dati per la scheda di ogni Pokémon (descrizione, statistiche, abilità...)."""
+    # descrizione: quella del gioco più recente, in italiano se esiste, altrimenti in inglese
+    flavor = {}
+    for r in read_csv("pokemon_species_flavor_text"):
+        if r["language_id"] in (ITALIAN, ENGLISH):
+            key = (int(r["species_id"]), r["language_id"])
+            version = int(r["version_id"])
+            if key not in flavor or version >= flavor[key][0]:
+                flavor[key] = (version, clean(r["flavor_text"]))
+    genus = {
+        (int(r["pokemon_species_id"]), r["local_language_id"]): r["genus"]
+        for r in read_csv("pokemon_species_names")
+        if r["local_language_id"] in (ITALIAN, ENGLISH) and r["genus"]
+    }
+    ability_names = {
+        int(r["ability_id"]): r["name"]
+        for r in read_csv("ability_names")
+        if r["local_language_id"] == ITALIAN
+    }
+    abilities = {}
+    for r in sorted(read_csv("pokemon_abilities"), key=lambda r: int(r["slot"])):
+        if int(r["pokemon_id"]) not in names:  # forme alternative
+            continue
+        abilities.setdefault(int(r["pokemon_id"]), []).append(
+            [ability_names[int(r["ability_id"])], int(r["is_hidden"])]
+        )
+    stats = {}
+    for r in sorted(read_csv("pokemon_stats"), key=lambda r: int(r["stat_id"])):
+        stats.setdefault(int(r["pokemon_id"]), []).append(int(r["base_stat"]))
+    body = {int(r["id"]): r for r in read_csv("pokemon")}
+    species = {int(r["id"]): r for r in read_csv("pokemon_species")}
+    evolves_to = {}
+    for sid, r in species.items():
+        if r["evolves_from_species_id"] and sid in names:
+            evolves_to.setdefault(int(r["evolves_from_species_id"]), []).append(sid)
+
+    details = {}
+    for pid in ids:
+        sp = species[pid]
+        desc_it = flavor.get((pid, ITALIAN))
+        desc = desc_it or flavor[(pid, ENGLISH)]
+        details[pid] = {
+            "genus": genus.get((pid, ITALIAN)) or genus.get((pid, ENGLISH), ""),
+            "desc": desc[1],
+            "descEn": 0 if desc_it else 1,  # 1 = descrizione disponibile solo in inglese
+            "height": int(body[pid]["height"]),  # decimetri
+            "weight": int(body[pid]["weight"]),  # ettogrammi
+            "stats": stats[pid],  # PS, Att, Dif, Att.Sp, Dif.Sp, Vel
+            "abilities": abilities[pid],  # [nome, nascosta?]
+            "gen": int(sp["generation_id"]),
+            "female": int(sp["gender_rate"]),  # ottavi di femmine, -1 = senza genere
+            "capture": int(sp["capture_rate"]),
+            "from": int(sp["evolves_from_species_id"]) if sp["evolves_from_species_id"] else 0,
+            "to": evolves_to.get(pid, []),
+            "rare": 2 if sp["is_mythical"] == "1" else 1 if sp["is_legendary"] == "1" else 0,
+        }
+    return details
+
+
 def main():
     ids = list(range(1, LAST_ID + 1))
 
@@ -166,6 +232,20 @@ def main():
         + "\n];\n"
     )
     (data_dir / "pokemon.js").write_text(js, encoding="utf-8")
+
+    details = build_details(ids, names)
+    (data_dir / "details.js").write_text(
+        "// Generato da tools/build_data.py — non modificare a mano.\n"
+        "window.DETAILS = {\n"
+        + ",\n".join(
+            f"{pid}:" + json.dumps(d, ensure_ascii=False, separators=(",", ":"))
+            for pid, d in details.items()
+        )
+        + "\n};\n",
+        encoding="utf-8",
+    )
+    only_en = sum(d["descEn"] for d in details.values())
+    print(f"{only_en} descrizioni disponibili solo in inglese")
 
     print(f"{len(rows)} Pokémon, {len(converted)} sprite convertiti da render 3D: {converted}")
 

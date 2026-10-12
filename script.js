@@ -1,11 +1,6 @@
 (function () {
   var POKEMON = window.POKEMON; // [numero, nome, [id tipi], complessità]
   var TYPES = window.TYPES;
-  var TYPE_COLORS = {
-    1: '#9a9a6b', 2: '#b3261e', 3: '#8f7fe0', 4: '#93358f', 5: '#c9a94a', 6: '#a8922f',
-    7: '#8f9e17', 8: '#5f4a8a', 9: '#8f8fa8', 10: '#e06a1c', 11: '#4a7be0', 12: '#5aa83a',
-    13: '#d9a900', 14: '#e0457a', 15: '#5fb3b3', 16: '#5a2ee0', 17: '#5a463a', 18: '#d9709a'
-  };
   var MAX_QTY = 20;
 
   var $ = function (id) { return document.getElementById(id); };
@@ -82,15 +77,17 @@
     return a.slice(0, n);
   }
 
-  function pad(n) { return ('000' + n).slice(-4); }
-
+  // ogni scheda è un link che apre la pagina del Pokémon in una nuova scheda
   function card(p) {
-    var el = document.createElement('div');
+    var el = document.createElement('a');
     el.className = 'card';
+    el.href = 'pokemon.html?id=' + p[0];
+    el.target = '_blank';
+    el.title = 'Apri la scheda di ' + p[1];
 
     var head = document.createElement('div');
     head.className = 'card-head';
-    head.textContent = 'N° ' + pad(p[0]);
+    head.textContent = 'N° ' + padNumber(p[0]);
     el.appendChild(head);
 
     var img = document.createElement('img');
@@ -108,29 +105,13 @@
 
     var types = document.createElement('div');
     types.className = 'types';
-    p[2].forEach(function (t) {
-      var s = document.createElement('span');
-      s.className = 'type';
-      s.style.background = TYPE_COLORS[t];
-      s.textContent = TYPES[t];
-      types.appendChild(s);
-    });
+    p[2].forEach(function (t) { types.appendChild(typeBadge(t)); });
     el.appendChild(types);
 
     var cx = document.createElement('div');
     cx.className = 'cx';
     cx.appendChild(document.createTextNode('Complessità: '));
-    var bar = document.createElement('span');
-    bar.className = 'bar';
-    for (var i = 1; i <= 10; i++) {
-      var seg = document.createElement('i');
-      if (i <= p[3]) seg.className = 'on';
-      bar.appendChild(seg);
-    }
-    cx.appendChild(bar);
-    var b = document.createElement('b');
-    b.textContent = ' ' + p[3] + '/10';
-    cx.appendChild(b);
+    cx.appendChild(complexityBar(p[3]));
     el.appendChild(cx);
 
     return el;
@@ -187,6 +168,5 @@
     try { localStorage.setItem('draws', draws); } catch (e) {}
   }
 
-  $('today').textContent = new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
   updatePool();
 })();

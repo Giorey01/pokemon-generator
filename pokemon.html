@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokéGenerator Forum :: Scheda Pokémon</title>
+<meta name="description" content="Genera Pokémon casuali filtrando per quantità, tipo e complessità grafica dello sprite.">
+<link rel="icon" href="sprites/25.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<table class="wrap" cellspacing="0" cellpadding="0" align="center"><tr><td>
+
+  <table class="header" cellspacing="0" cellpadding="0" width="100%"><tr>
+    <td class="logo-cell"><img src="sprites/25.png" width="96" height="96" alt="" class="px"></td>
+    <td>
+      <h1>PokéGenerator Forum</h1>
+      <div class="tagline">Il generatore casuale di Pokémon n°1 del web!!</div>
+    </td>
+    <td class="header-links">
+      <a href="index.html">Generatore</a> | <a href="index.html#faq">FAQ</a><br>
+      <span class="small">Benvenuto, <b>Ospite</b>. Oggi è <span id="today"></span></span>
+    </td>
+  </tr></table>
+
+  <div class="breadcrumb"><b>&raquo;</b> <a href="index.html">PokéGenerator Forum</a> <b>&raquo;</b> <a href="index.html">Generatore</a> <b>&raquo;</b> Scheda Pokémon <b>&raquo;</b> <span id="crumb"></span></div>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <table class="box profile" cellspacing="1" cellpadding="0" width="100%" id="profile">
+    <tr><th colspan="2" class="cat">:: Scheda Pokémon: <span id="title"></span> ::</th></tr>
+    <tr class="row">
+      <td class="profile-left">
+        <div class="avatar"><img id="sprite" class="px" width="288" height="288" alt=""></div>
+        <div class="name" id="name"></div>
+        <div class="small" id="number"></div>
+        <div class="types" id="types"></div>
+        <div class="navlinks">
+          <a id="prev" class="btn">&laquo; Prec.</a>
+          <a id="next" class="btn">Succ. &raquo;</a>
+        </div>
+      </td>
+      <td class="profile-right">
+        <table class="info" cellspacing="0" cellpadding="0" width="100%">
+          <tr><th>Categoria</th><td id="genus"></td></tr>
+          <tr><th>Descrizione</th><td id="desc"></td></tr>
+          <tr><th>Altezza</th><td id="height"></td></tr>
+          <tr><th>Peso</th><td id="weight"></td></tr>
+          <tr><th>Abilità</th><td id="abilities"></td></tr>
+          <tr><th>Generazione</th><td id="gen"></td></tr>
+          <tr><th>Sesso</th><td id="gender"></td></tr>
+          <tr><th>Tasso di cattura</th><td id="capture"></td></tr>
+          <tr><th>Evoluzione</th><td id="evo"></td></tr>
+          <tr><th>Complessità grafica</th><td id="cx"></td></tr>
+        </table>
+        <div class="subtitle">Statistiche base</div>
+        <table class="stats" cellspacing="0" cellpadding="0" width="100%" id="stats"></table>
+      </td>
+    </tr>
+  </table>
+
+  <div class="footer">
+    <span class="badge b1">HTML 4.01</span>
+    <span class="badge b2">IE 6.0</span>
+    <span class="badge b3">1024x768</span>
+    <span class="badge b4">NO SPAM</span>
+    <br>
+    PokéGenerator Forum &copy; 2005 &mdash; Sito amatoriale non ufficiale.<br>
+    Pokémon e i rispettivi nomi sono marchi di Nintendo / Creatures Inc. / GAME FREAK inc.
+  </div>
+
+</td></tr></table>
+
+<script src="data/pokemon.js"></script>
+<script src="data/details.js"></script>
+<script src="common.js"></script>
+<script src="pokemon-page.js"></script>
+</body>
+</html>

@@ -10,6 +10,9 @@ Tre filtri:
 - **Tipo** — uno o due dei 18 tipi (con due tipi il Pokémon deve averli entrambi)
 - **Complessità grafica** — intervallo da 1 a 10, calcolato sullo sprite 96x96
 
+Cliccando su un Pokémon estratto si apre in una nuova scheda la sua pagina (`pokemon.html?id=N`):
+sprite grande a sinistra; a destra descrizione, altezza, peso, abilità, evoluzioni e statistiche base.
+
 ## Complessità grafica
 
 `tools/build_data.py` analizza ogni sprite e combina tre misure:
@@ -31,7 +34,7 @@ python -m venv .venv
 ```
 
 Lo script scarica nomi, tipi e sprite da [PokéAPI](https://pokeapi.co/) e riscrive
-`sprites/` e `data/pokemon.js`. Se per un Pokémon manca lo sprite 96x96, il render 3D
+`sprites/`, `data/pokemon.js` e `data/details.js`. Se per un Pokémon manca lo sprite 96x96, il render 3D
 viene convertito automaticamente in pixel art (al momento non serve per nessuno).
 
 ## Crediti

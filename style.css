@@ -176,3 +176,54 @@ input[type=number] { width: 48px; }
   .card { width: 138px; }
   .card img { width: 96px; height: 96px; }
 }
+
+/* le schede dei risultati sono link alla pagina del Pokémon */
+a.card { display: block; color: #000; text-decoration: none; cursor: pointer; }
+a.card:hover { color: #000; border-color: #ff4400; background: #fffbe8; }
+a.card:hover .name { color: #ff4400; text-decoration: underline; }
+
+/* scheda Pokémon (pokemon.html): sprite a sinistra, dati a destra */
+.profile .row td.profile-left { width: 300px; text-align: center; background: #e6e9f4; }
+.profile .row td.profile-right { background: #f1f3fa; }
+.avatar { background: #fff; border: 1px solid #98aab1; margin-bottom: 6px; }
+.avatar img { display: block; margin: 0 auto; width: 288px; height: 288px; }
+.profile-left .name { font: bold 18px "Trebuchet MS", Verdana, sans-serif; color: #0b198c; }
+.profile-left .types { margin: 6px 0; }
+.navlinks { margin-top: 8px; }
+a.btn { display: inline-block; text-decoration: none; }
+a.btn:hover { color: #000; }
+.box .row .info th, .box .row .info td,
+.box .row .stats th, .box .row .stats td {
+  padding: 4px 6px;
+  background: none;
+  border-bottom: 1px dotted #98aab1;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.info th, .stats th { width: 130px; color: #0b198c; white-space: nowrap; }
+.subtitle {
+  margin: 12px 0 2px;
+  padding: 3px 6px;
+  background: linear-gradient(#f4f6fb, #c9d2e6);
+  border: 1px solid #98aab1;
+  color: #0b198c;
+  font-weight: bold;
+}
+.box .row .stats td.num { width: 30px; text-align: right; font-weight: bold; }
+.statbar { height: 10px; border: 1px solid #555; background: #fff; }
+.statbar div { height: 100%; }
+.statbar .low { background: linear-gradient(#ff8a7a, #c8321e); }
+.statbar .mid { background: linear-gradient(#ffd45a, #d99a00); }
+.statbar .high { background: linear-gradient(#8fd96a, #3a9a1e); }
+.box .row .stats tr.total th, .box .row .stats tr.total td { border-bottom: 0; }
+
+@media (max-width: 600px) {
+  .profile .row td.profile-left { width: auto; }
+  .avatar img { width: 192px; height: 192px; }
+  .box .row .info, .box .row .stats { display: table; }
+  .box .row .info tr, .box .row .stats tr { display: table-row; }
+  .box .row .info th, .box .row .info td,
+  .box .row .stats th, .box .row .stats td { display: table-cell; border-top: 0; }
+  .info th, .stats th { width: 96px; white-space: normal; }
+}
