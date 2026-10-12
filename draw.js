@@ -13,6 +13,19 @@
   };
 
   var $ = function (id) { return document.getElementById(id); };
+
+  // cursori disegnati per ogni strumento (SVG 24x24 + punto attivo)
+  function cursor(shapes, x, y, fallback) {
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="#000" stroke-linejoin="round">' + shapes + '</svg>';
+    return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") ' + x + ' ' + y + ', ' + fallback;
+  }
+  var CURSORS = {
+    pencil: cursor('<path d="M2 22 4 16 16 4 20 8 8 20Z" fill="#ffcc33"/><path d="M2 22 4 16 8 20Z" fill="#000"/><path d="M14 6 18 10" fill="none"/>', 2, 22, 'crosshair'),
+    eraser: cursor('<path d="M2 16 12 6 19 13 9 23Z" fill="#ff9aa8"/><path d="M2 16 6 12 13 19 9 23Z" fill="#fff"/>', 5, 20, 'crosshair'),
+    bucket: cursor('<path d="M9 11 15 5 22 12 14 20Z" fill="#d6d3ce"/><path d="M12 8 12 3" fill="none"/><path d="M4 22q-3-4 0-8q3 4 0 8Z" fill="#3399ff"/>', 4, 22, 'crosshair'),
+    picker: cursor('<path d="M2 22 3 18 13 8 16 11 6 21Z" fill="#fff"/><path d="M12 7 15 4q3-3 5 0q3 2 0 5L17 12Z" fill="#000"/>', 2, 22, 'crosshair'),
+    line: 'crosshair', rect: 'crosshair', ellipse: 'crosshair', select: 'crosshair', move: 'move', hand: 'grab'
+  };
   var viewport = $('viewport'), stage = $('stage');
   var ctx = $('canvas').getContext('2d');
   var diffCtx = $('diff').getContext('2d');
@@ -286,7 +299,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-tool]'), function (b) {
       b.classList.toggle('on', b.getAttribute('data-tool') === name);
     });
-    stage.style.cursor = name === 'hand' ? 'grab' : name === 'move' ? 'move' : 'crosshair';
+    stage.style.cursor = CURSORS[name];
     drawPreview();
     updateStatus();
   }

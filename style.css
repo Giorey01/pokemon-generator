@@ -228,10 +228,10 @@ a.btn:hover { color: #000; }
   .info th, .stats th { width: 96px; white-space: normal; }
 }
 
-/* barra di navigazione per telefoni (l'intestazione lì nasconde i link) */
-.mobile-nav { display: none; margin: 4px 0; padding: 5px 6px; background: #1c3b8f; border: 1px solid #0b198c; color: #fff; text-align: center; font-weight: bold; }
-.mobile-nav a { color: #fff; }
-@media (max-width: 600px) { .mobile-nav { display: block; } }
+/* barra di navigazione sotto l'intestazione */
+.navbar { margin: 4px 0; padding: 4px; background: linear-gradient(#f4f6fb, #c9d2e6); border: 1px solid #0b198c; text-align: center; }
+.navbar a { display: inline-block; margin: 2px 3px; padding: 4px 12px; background: linear-gradient(#fff, #d6d3ce); border: 2px solid; border-color: #fff #808080 #808080 #fff; outline: 1px solid #404040; color: #000; font-weight: bold; text-decoration: none; }
+.navbar a:hover { color: #ff4400; }
 
 /* pagina di disegno (draw.html): riferimento a sinistra, tela a destra */
 /* layout fisso: la tela ingrandita scorre dentro il suo riquadro invece di allargare la pagina */
